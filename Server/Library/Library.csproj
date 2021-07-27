@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="BankServer\Data\" />
+    <Folder Include="BankServer\Entities\" />
+    <Folder Include="BankServer\Migrations\" />
+    <Folder Include="IdentityServer\Entities\" />
+    <Folder Include="IdentityServer\Data\" />
+    <Folder Include="IdentityServer\Migrations\" />
+  </ItemGroup>
+
+</Project>
