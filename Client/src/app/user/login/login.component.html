@@ -1,0 +1,16 @@
+<form #form='ngForm' class="login-form" autocomplete="off" (submit)="onSubmit(form)">
+    <div class="form-group"> <br>
+        <label style="margin-top: 5%;">Nume utilizator</label> <br> <br>
+        <input class="form-control" #UserName="ngModel" name="UserName" [(ngModel)]="formModel.UserName" required>
+    </div> <br>
+    <div class="form-group">
+        <label>Parola</label> <br> <br>
+        <input type="password" class="form-control" #Password="ngModel" name="Password" [(ngModel)]="formModel.Password" required>
+    </div> 
+    <div class="form-row">
+        <div class="form-group col-md-8 offset-md-2">
+            <button type="submit" class="btn btn-lg hero-btn" [disabled]="form.invalid">Conectare</button>
+        </div>
+    </div>
+</form>
+

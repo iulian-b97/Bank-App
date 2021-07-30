@@ -1,0 +1,25 @@
+<section class="header">
+    <div class="text-box">
+        <h1>Cont</h1>
+        <p>
+            Pe aceasta pagina utilizatorii isi pot face un cont nou,
+            iar<br> cei care au un cont deja se pot conecta pentru a putea<br>
+            beneficia de fiecare serviciu pe care il ofera platforma.
+        </p>
+    </div>
+</section>
+
+<section class="authentication">
+    <h1>Conecteaza-te la contul tau</h1>
+    <p>Completeaza datele de mai jos ale contului tau existent,<br> in caz ca nu ai poti face un cont nou mai jos</p>
+
+    <div class="auth-box">
+        <div class="auth-header">
+            <a routerLink='/user/login' routerLinkActive='active'>Conectare</a>
+            <a routerLink='/user/register' routerLinkActive='active'>Inregistrare</a>
+        </div>
+        <router-outlet></router-outlet>
+    </div>
+</section>
+
+

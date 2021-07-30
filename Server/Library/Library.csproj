@@ -8,9 +8,16 @@
     <Folder Include="BankServer\Data\" />
     <Folder Include="BankServer\Entities\" />
     <Folder Include="BankServer\Migrations\" />
-    <Folder Include="IdentityServer\Entities\" />
-    <Folder Include="IdentityServer\Data\" />
-    <Folder Include="IdentityServer\Migrations\" />
+    <Folder Include="BankServer\Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
 </Project>

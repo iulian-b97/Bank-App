@@ -1,0 +1,131 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+.header {
+    min-height: 55vh;
+    width: 101%;
+    background-image: linear-gradient(rgba(17, 98, 112, 0.7),rgba(11, 78, 90, 0.466)),
+                      url('src/assets/images/account_header_background.jpg');
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    margin-top: -66px;
+    margin-left: -0.5%;
+}
+
+
+.text-box {
+    width: 90%;
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+}
+
+.text-box h1 {
+    font-size: 36px;
+    font-weight: 600;
+}
+
+.text-box p {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 22px;
+    padding: 10px;
+}
+
+
+.authentication {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    padding-top: 100px;
+}
+
+.authentication h1 {
+    font-size: 36px;
+    font-weight: 600;
+    padding: 20px;
+}
+
+.authentication p {
+    color: black;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 22px;
+    padding: 10px;
+}
+
+
+.auth-box {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    padding-top: 50px;
+}
+
+.auth-header {
+    width: 50%;
+    height: auto;
+    margin: auto;
+    background: rgb(138,180,141);
+    background: linear-gradient(45deg, rgb(21, 64, 145) 0%, rgba(11, 73, 73, 0.75) 49%, rgb(85, 194, 202) 95%);
+    border: 1px solid dimgray;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom: 5px solid #fff;
+    padding-top: 5px;
+    padding-bottom: 10px;
+}
+
+.auth-header a {
+    padding: 35px;
+    text-decoration: none;
+    color: #fff;
+    font-size: 30px;
+}
+
+.auth-header a:hover {
+    color: rgb(208, 226, 199);
+}
+
+.auth-header a:focus{
+    color: rgb(208, 226, 199);
+}
+
+
+@media (max-width: 700px) {
+    .text-box h1 {
+        font-size: 20px;
+    }
+    
+    .text-box p {
+        font-size: 11px;
+    }
+
+
+    .authentication h1 {
+        font-size: 20px;
+    }
+    
+    .authentication p {
+        font-size: 13px;
+    }
+
+    
+    .auth-header {
+        width: 100%;
+    }
+
+    .auth-header a {
+        padding: 20px;
+        font-size: 20px;
+    }
+}
+
+

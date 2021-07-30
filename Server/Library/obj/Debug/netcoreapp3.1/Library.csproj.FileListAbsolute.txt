@@ -7,3 +7,6 @@ C:\Users\Iulian\Projects ASP.NET\Bank-App\Server\Library\obj\Debug\netcoreapp3.1
 C:\Users\Iulian\Projects ASP.NET\Bank-App\Server\Library\obj\Debug\netcoreapp3.1\Library.csproj.CoreCompileInputs.cache
 C:\Users\Iulian\Projects ASP.NET\Bank-App\Server\Library\obj\Debug\netcoreapp3.1\Library.dll
 C:\Users\Iulian\Projects ASP.NET\Bank-App\Server\Library\obj\Debug\netcoreapp3.1\Library.pdb
+C:\Users\Iulian\Projects ASP.NET\Bank-App\Server\Library\bin\Debug\netcoreapp3.1\Library.runtimeconfig.json
+C:\Users\Iulian\Projects ASP.NET\Bank-App\Server\Library\bin\Debug\netcoreapp3.1\Library.runtimeconfig.dev.json
+C:\Users\Iulian\Projects ASP.NET\Bank-App\Server\Library\obj\Debug\netcoreapp3.1\Library.genruntimeconfig.cache
