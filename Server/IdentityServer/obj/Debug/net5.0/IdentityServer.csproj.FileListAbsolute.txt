@@ -70,3 +70,7 @@ C:\Users\Iulian\Projects ASP.NET\Bank-App\Server\IdentityServer\bin\Debug\net5.0
 C:\Users\Iulian\Projects ASP.NET\Bank-App\Server\IdentityServer\bin\Debug\net5.0\Microsoft.AspNetCore.Identity.UI.Views.V4.dll
 C:\Users\Iulian\Projects ASP.NET\Bank-App\Server\IdentityServer\bin\Debug\net5.0\Microsoft.AspNetCore.Identity.UI.dll
 C:\Users\Iulian\Projects ASP.NET\Bank-App\Server\IdentityServer\bin\Debug\net5.0\Microsoft.Extensions.FileProviders.Embedded.dll
+C:\Users\Iulian\Projects ASP.NET\Bank-App\Server\IdentityServer\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\Iulian\Projects ASP.NET\Bank-App\Server\IdentityServer\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\Iulian\Projects ASP.NET\Bank-App\Server\IdentityServer\bin\Debug\net5.0\Newtonsoft.Json.dll
+C:\Users\Iulian\Projects ASP.NET\Bank-App\Server\IdentityServer\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll

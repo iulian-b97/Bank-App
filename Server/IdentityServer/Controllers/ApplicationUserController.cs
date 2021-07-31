@@ -24,35 +24,48 @@ namespace IdentityServer.Controllers
         private UserManager<ApplicationUser> _userManager;
         private SignInManager<ApplicationUser> _signInManager;
         private readonly ApplicationSettings _appSettings;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
         public ApplicationUserController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
-                                         IOptions<ApplicationSettings> appSettings)
+                                         IOptions<ApplicationSettings> appSettings, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _appSettings = appSettings.Value;
+            _roleManager = roleManager;
         }
+
 
         [HttpPost]
         [Route("Register")]
         public async Task<Object> PostApplicationUser(ApplicationUserModel model)
         {
+            if(!await _roleManager.RoleExistsAsync(model.Role))
+            {
+                return Ok("Role does not exist");
+            }
+
             var applicationUser = new ApplicationUser()
             {
                 UserName = model.UserName,
                 Email = model.Email,
-                FullName = model.FullName
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                CNP = model.CNP,
+                Address = model.Address,
+                PhoneNumber = model.PhoneNumber,
+                Role = model.Role
             };
 
-            try
+            var result = await _userManager.CreateAsync(applicationUser, model.Password);
+
+            if(result.Succeeded)
             {
-                var result = await _userManager.CreateAsync(applicationUser, model.Password);
-                return Ok(result);
+                var tempUser = await _userManager.FindByEmailAsync(model.Email);
+                await _userManager.AddToRoleAsync(tempUser, model.Role);
             }
-            catch (Exception ex)
-            {
-                return ex;
-            }
+
+            return Ok(result);
         }
 
 

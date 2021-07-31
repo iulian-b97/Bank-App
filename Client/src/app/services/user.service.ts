@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -22,12 +22,17 @@ export class UserService {
 
   formModel = this.fb.group({
     UserName :['',Validators.required],
-    Email :['',Validators.email],
-    FullName :[''],
     Passwords : this.fb.group({
       Password :['',[Validators.required,Validators.minLength(4)]],
       ConfirmPassword :['',Validators.required]
-    },{validator : this.comparePasswords})
+    },{validator : this.comparePasswords}),
+    Email :['',Validators.email],
+    FirstName :[''],
+    LastName :[''],
+    CNP :[''],
+    Address :[''],
+    PhoneNumber :[''],
+    Role :['']
   });
 
 
@@ -49,16 +54,27 @@ export class UserService {
   {
     var body = {
       UserName: this.formModel.value.UserName,
+      Password: this.formModel.value.Passwords.Password,
       Email: this.formModel.value.Email,
-      FullName: this.formModel.value.FullName,
-      Password: this.formModel.value.Passwords.Password
-    };
+      FirstName: this.formModel.value.FirstName,
+      LastName: this.formModel.value.LastName,
+      CNP: this.formModel.value.CNP,
+      Address: this.formModel.value.Address,
+      PhoneNumber: this.formModel.value.PhoneNumber,
+      Role: this.formModel.value.Role
+    };  
+
     return this.http.post(this.BaseURI+'/ApplicationUser/Register',body);
   }
 
   login(formData: any)
   {
     return this.http.post(this.BaseURI+'/ApplicationUser/Login',formData);
+  }
+
+  
+  addRoles() {
+    return this.http.post(this.BaseURI+'/Administration/CreateRole', null);
   }
 
   logout()
@@ -79,4 +95,5 @@ export class UserService {
   {
     return this.isLoggedIn$.value;
   }
+
 }

@@ -1,4 +1,4 @@
-using Library.IdentityServer.Data;
+﻿using Library.IdentityServer.Data;
 using Library.IdentityServer.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -33,7 +33,7 @@ namespace IdentityServer
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "IdentityServer", Version = "v1" });
@@ -45,6 +45,7 @@ namespace IdentityServer
             );
 
             services.AddDefaultIdentity<ApplicationUser>()
+                    .AddRoles<IdentityRole>()
                     .AddEntityFrameworkStores<AuthenticationContext>();
 
             services.Configure<IdentityOptions>(options =>

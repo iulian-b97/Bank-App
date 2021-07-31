@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace IdentityServer.Services
 {
-    public class UserRepository
+    public class UserRepository : IUserRepository
     {
     }
 }

@@ -24,6 +24,9 @@ export class HomeComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
+    this.service.addRoles().subscribe((res:any) => {
+      console.log(res);
+    });
   }
 
   isLog(): boolean

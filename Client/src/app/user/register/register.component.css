@@ -12,12 +12,19 @@
 
 .form-group label {
     font-weight: 400;
-    font-size: 25px;
+    font-size: 20px;
     color: #fff;
     padding-top: 1px;
 }
 
 .form-group input {
+    width: 60%;
+    margin: auto;
+    text-align: center;
+    font-size: 15px;
+}
+
+.form-group select {
     width: 60%;
     margin: auto;
     text-align: center;

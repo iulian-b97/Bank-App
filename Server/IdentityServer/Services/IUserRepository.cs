@@ -7,5 +7,6 @@ namespace IdentityServer.Services
 {
     public interface IUserRepository
     {
+        
     }
 }
