@@ -1,4 +1,5 @@
-﻿using Library.IdentityServer.Data;
+﻿using Library.BankServer.Data;
+using Library.IdentityServer.Data;
 using Library.IdentityServer.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -38,6 +39,11 @@ namespace IdentityServer
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "IdentityServer", Version = "v1" });
             });
+
+            services.AddDbContext<BankContext>
+            (
+                options => options.UseSqlServer(Configuration.GetConnectionString("BankConnection"))
+            );
 
             services.AddDbContext<AuthenticationContext>
             (
