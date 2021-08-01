@@ -32,28 +32,5 @@ namespace IdentityServer.Controllers
 
             return Ok();
         }
-
-
-        /*[HttpPost]
-        [Route("AddRole")]
-        public async Task<IActionResult> AddRole()
-        {
-            ApplicationUser user = new ApplicationUser
-            {
-                Id= "8be8c188-6ec0-4e97-96f2-43449938a5b7",
-                UserName = "admin",
-                PasswordHash = "admin",
-                Email = "admin@gmail.com",
-                FirstName = "admin",
-                LastName = "admin",
-                CNP = "admin",
-                Address = "admin",
-                Role = "Banking Operator"
-            };
-
-            var result = await _userManager.AddToRoleAsync(user, "Banking Operator");
-
-            return Ok(result);
-        }*/
     }
 }
