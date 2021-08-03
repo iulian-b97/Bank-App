@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BankServer.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,5 +12,12 @@ namespace BankServer.Controllers
     [ApiController]
     public class ClientController : ControllerBase
     {
+        private readonly IClientRepository _clientRepository;
+
+        public ClientController(IClientRepository clientRepository)
+        {
+            _clientRepository = clientRepository;
+        }
+
     }
 }

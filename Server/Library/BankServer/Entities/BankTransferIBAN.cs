@@ -18,8 +18,11 @@ namespace Library.BankServer.Entities
         [Required]
         public DateTime Date { get; set; }
 
+        public string BankId { get; set; }
         public Bank Bank { get; set; }
+        public string BankingOperatorId { get; set; }
         public BankingOperator BankingOperator { get; set; }
+        public string BankAccountId { get; set; }
         public BankAccount BankAccount { get; set; }
     }
 }

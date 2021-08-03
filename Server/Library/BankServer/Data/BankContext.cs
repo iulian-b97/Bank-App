@@ -49,60 +49,68 @@ namespace Library.BankServer.Data
             //Bank - BankingOperator (one to many)
             modelBuilder.Entity<Bank>()
                 .HasMany(x => x.BankingOperators)
-                .WithOne(y => y.Bank);
+                .WithOne(y => y.Bank)
+                .HasForeignKey(y => y.BankId);
 
             //Bank - Client (one to many)
             modelBuilder.Entity<Bank>()
                 .HasMany(x => x.Clients)
-                .WithOne(y => y.Bank);
+                .WithOne(y => y.Bank)
+                .HasForeignKey(y => y.BankId);
 
             //Bank - BankAccount (one to many)
             modelBuilder.Entity<Bank>()
                 .HasMany(x => x.BankAccounts)
-                .WithOne(y => y.Bank);
+                .WithOne(y => y.Bank)
+                .HasForeignKey(y => y.BankId);
 
             //Bank - BankTransferIBAN (one to many)
             modelBuilder.Entity<Bank>()
                 .HasMany(x => x.BankTransferIBANs)
-                .WithOne(y => y.Bank);
+                .WithOne(y => y.Bank)
+                .HasForeignKey(y => y.BankId);
 
             //BankingOperator - BankTransferIBAN (one to many)
             modelBuilder.Entity<BankingOperator>()
                 .HasMany(x => x.BankTransferIBANs)
-                .WithOne(y => y.BankingOperator);
+                .WithOne(y => y.BankingOperator)
+                .HasForeignKey(y => y.BankingOperatorId);
 
             //Client - BankAccount (one to many)
             modelBuilder.Entity<Client>()
                 .HasMany(x => x.BankAccounts)
-                .WithOne(y => y.Client);
+                .WithOne(y => y.Client)
+                .HasForeignKey(y => y.ClientId);
 
             //BankAccount - Transaction (one to many)
             modelBuilder.Entity<BankAccount>()
                 .HasMany(x => x.Transactions)
-                .WithOne(y => y.BankAccount);
+                .WithOne(y => y.BankAccount)
+                .HasForeignKey(y => y.BankAccountId);
 
-            //AccountType - BankAccount (one to one)
+            //AccountType - BankAccount (one to many)
             modelBuilder.Entity<AccountType>()
-                .HasOne(x => x.BankAccount)
+                .HasMany(x => x.BankAccounts)
                 .WithOne(y => y.AccountType)
-                .HasForeignKey<BankAccount>(y => y.AccountTypeId);
+                .HasForeignKey(y => y.AccountTypeId);
 
             //BankAccount - BankTransferIBAN (one to many)
             modelBuilder.Entity<BankAccount>()
                 .HasMany(x => x.BankTransferIBANs)
-                .WithOne(y => y.BankAccount);
+                .WithOne(y => y.BankAccount)
+                .HasForeignKey(y => y.BankAccountId);
 
-            //Deposit - Transaction (one to one)
+            //Deposit - Transaction (one to many)
             modelBuilder.Entity<Deposit>()
-                .HasOne(x => x.Transaction)
+                .HasMany(x => x.Transactions)
                 .WithOne(y => y.Deposit)
-                .HasForeignKey<Transaction>(y => y.DepositId);
+                .HasForeignKey(y => y.DepositId);
 
-            //Withdrawal - Transaction (one to one)
+            //Withdrawal - Transaction (one to many)
             modelBuilder.Entity<Withdrawal>()
-                .HasOne(x => x.Transaction)
+                .HasMany(x => x.Transactions)
                 .WithOne(y => y.Withdrawal)
-                .HasForeignKey<Transaction>(y => y.WithdrawalId);
+                .HasForeignKey(y => y.WithdrawalId);
         }
     }
 }

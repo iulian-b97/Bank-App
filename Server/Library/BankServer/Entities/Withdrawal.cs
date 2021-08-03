@@ -12,6 +12,6 @@ namespace Library.BankServer.Entities
         [Required]
         public float Sum { get; set; }
 
-        public Transaction Transaction { get; set; }
+        public ICollection<Transaction> Transactions { get; set; }
     }
 }

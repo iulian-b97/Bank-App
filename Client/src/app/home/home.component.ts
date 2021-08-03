@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { UserService } from '../services/user.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { map, shareReplay } from 'rxjs/operators';
+import { ClientService } from '../services/client.service';
 
 @Component({
   selector: 'app-home',
@@ -20,18 +21,15 @@ export class HomeComponent implements OnInit {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver, private service: UserService, 
-              private router: Router) { }
+  constructor(private breakpointObserver: BreakpointObserver, private userService: UserService, 
+              private clientService: ClientService ,private router: Router) { }
 
   ngOnInit(): void {
-    this.service.addRoles().subscribe((res:any) => {
-      console.log(res);
-    });
   }
 
   isLog(): boolean
   {
-    return this.service.isLogged();
+    return this.userService.isLogged();
   }
 
   onLogin() {

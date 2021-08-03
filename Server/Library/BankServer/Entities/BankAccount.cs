@@ -21,7 +21,9 @@ namespace Library.BankServer.Entities
         [Required]
         public float Sold { get; set; }
 
+        public string BankId { get; set; }
         public Bank Bank { get; set; }
+        public string ClientId { get; set; }
         public Client Client { get; set; }
         public ICollection<Transaction> Transactions { get; set; }
         public string AccountTypeId { get; set; }

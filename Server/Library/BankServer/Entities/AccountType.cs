@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -16,6 +17,6 @@ namespace Library.BankServer.Entities
         [Required]
         public int Commission { get; set; }
 
-        public BankAccount BankAccount { get; set; }
+        public ICollection<BankAccount> BankAccounts { get; set; }
     }
 }

@@ -72,11 +72,6 @@ export class UserService {
     return this.http.post(this.BaseURI+'/ApplicationUser/Login',formData);
   }
 
-  
-  addRoles() {
-    return this.http.post(this.BaseURI+'/Administration/CreateRole', null);
-  }
-
   logout()
   {
     localStorage.setItem('loggedIn', 'false');

@@ -1,7 +1,9 @@
 using Library.BankServer.Data;
 using Library.BankServer.Entities;
 using Library.IdentityServer.Data;
+using Library.IdentityServer.Entities;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,7 +25,9 @@ namespace IdentityServer
             using (var scope = webHost.Services.CreateScope())
             {
                 IConfiguration configuration = scope.ServiceProvider.GetRequiredService<IConfiguration>();
+                
 
+                //1.Copy data from UserTable in ClientTable and BankingOperatorTable
                 AuthenticationContext authenticationContext = scope.ServiceProvider.GetRequiredService<AuthenticationContext>();
                 BankContext bankContext = scope.ServiceProvider.GetRequiredService<BankContext>();
 
@@ -74,6 +78,52 @@ namespace IdentityServer
                 {
                     bankContext.BankingOperators.Add(user);
                 }
+
+
+                //2.Create AccountTypes 
+                AccountType accountTypeGold = new AccountType
+                {
+                    Id = "cb426db8-96e0-4e2d-9477-2e8fb7272a04",
+                    OfferType = "Cont Gold",
+                    Commission = 0
+                };
+                var resGold = bankContext.AccountTypes.FirstOrDefault(x => x.Id.Equals(accountTypeGold.Id));
+
+                AccountType accountTypeSilver = new AccountType
+                {
+                    Id = "225dcadb-74cf-4843-b00a-1b43839ac892",
+                    OfferType = "Cont Silver",
+                    Commission = 1
+                };
+                var resSilver = bankContext.AccountTypes.FirstOrDefault(x => x.Id.Equals(accountTypeSilver.Id));
+
+                AccountType accountTypeBasic = new AccountType
+                {
+                    Id = "1dac8b6e-baa8-4c0b-97ad-b305ebcd24bf",
+                    OfferType = "Cont Basic",
+                    Commission = 2
+                };
+                var resBasic = bankContext.AccountTypes.FirstOrDefault(x => x.Id.Equals(accountTypeBasic.Id));
+
+                if ((resGold == null) || (resSilver == null) || (resBasic == null))
+                {
+                    bankContext.AccountTypes.Add(accountTypeGold);
+                    bankContext.AccountTypes.Add(accountTypeSilver);
+                    bankContext.AccountTypes.Add(accountTypeBasic);
+                }
+                
+
+                //3.Create Roles
+                RoleManager<IdentityRole> _roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+                bool existClient = await _roleManager.RoleExistsAsync("Client");
+                bool existBankingOperator = await _roleManager.RoleExistsAsync("Operator Bancar");
+                if (!existClient || !existBankingOperator)
+                {
+                    var client = await _roleManager.CreateAsync(new IdentityRole { Id = "3213ef6b-1d6a-4676-941d-45132ceaa022", Name = "Client" });
+                    var bankingOperator = await _roleManager.CreateAsync(new IdentityRole { Id = "a064ba53-869f-4a07-9c76-b634ea9eece6", Name = "Operator Bancar" });
+                }
+
 
                 await bankContext.SaveChangesAsync();
             }

@@ -29,6 +29,7 @@ namespace Library.BankServer.Entities
         [Column(TypeName = "nvarchar(20)")]
         public string PhoneNumber { get; set; }
 
+        public string BankId { get; set; }
         public Bank Bank { get; set; }
         public ICollection<BankTransferIBAN> BankTransferIBANs { get; set; }
     }

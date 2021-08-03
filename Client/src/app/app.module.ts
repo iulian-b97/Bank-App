@@ -14,6 +14,8 @@ import { RootNavComponent } from './root-nav/root-nav.component';
 import { AtmMenuComponent } from './atm-menu/atm-menu.component';
 import { BankingOperatorComponent } from './banking-operator/banking-operator.component';
 import { AuthenticationComponent } from './banking-operator/authentication/authentication.component';
+import { ClientService } from './services/client.service';
+import { BankingOperatorService } from './services/banking-operator.service';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { AuthenticationComponent } from './banking-operator/authentication/authe
     HttpClientModule
   ],
   providers: [
-    UserService
+    UserService,
+    ClientService,
+    BankingOperatorService
   ],
   bootstrap: [AppComponent]
 })

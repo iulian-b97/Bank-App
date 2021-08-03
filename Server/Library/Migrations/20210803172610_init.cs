@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Library.BankServer.Migrations
+namespace Library.Migrations
 {
     public partial class init : Migration
     {
@@ -215,9 +215,7 @@ namespace Library.BankServer.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_BankAccounts_AccountTypeId",
                 table: "BankAccounts",
-                column: "AccountTypeId",
-                unique: true,
-                filter: "[AccountTypeId] IS NOT NULL");
+                column: "AccountTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_BankAccounts_BankId",
@@ -262,16 +260,12 @@ namespace Library.BankServer.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Transactions_DepositId",
                 table: "Transactions",
-                column: "DepositId",
-                unique: true,
-                filter: "[DepositId] IS NOT NULL");
+                column: "DepositId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Transactions_WithdrawalId",
                 table: "Transactions",
-                column: "WithdrawalId",
-                unique: true,
-                filter: "[WithdrawalId] IS NOT NULL");
+                column: "WithdrawalId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Library.BankServer.Migrations
+namespace Library.Migrations
 {
     [DbContext(typeof(BankContext))]
     partial class BankContextModelSnapshot : ModelSnapshot
@@ -92,9 +92,7 @@ namespace Library.BankServer.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AccountTypeId")
-                        .IsUnique()
-                        .HasFilter("[AccountTypeId] IS NOT NULL");
+                    b.HasIndex("AccountTypeId");
 
                     b.HasIndex("BankId");
 
@@ -253,13 +251,9 @@ namespace Library.BankServer.Migrations
 
                     b.HasIndex("BankAccountId");
 
-                    b.HasIndex("DepositId")
-                        .IsUnique()
-                        .HasFilter("[DepositId] IS NOT NULL");
+                    b.HasIndex("DepositId");
 
-                    b.HasIndex("WithdrawalId")
-                        .IsUnique()
-                        .HasFilter("[WithdrawalId] IS NOT NULL");
+                    b.HasIndex("WithdrawalId");
 
                     b.ToTable("Transactions");
                 });
@@ -280,8 +274,8 @@ namespace Library.BankServer.Migrations
             modelBuilder.Entity("Library.BankServer.Entities.BankAccount", b =>
                 {
                     b.HasOne("Library.BankServer.Entities.AccountType", "AccountType")
-                        .WithOne("BankAccount")
-                        .HasForeignKey("Library.BankServer.Entities.BankAccount", "AccountTypeId");
+                        .WithMany("BankAccounts")
+                        .HasForeignKey("AccountTypeId");
 
                     b.HasOne("Library.BankServer.Entities.Bank", "Bank")
                         .WithMany("BankAccounts")
@@ -344,12 +338,12 @@ namespace Library.BankServer.Migrations
                         .HasForeignKey("BankAccountId");
 
                     b.HasOne("Library.BankServer.Entities.Deposit", "Deposit")
-                        .WithOne("Transaction")
-                        .HasForeignKey("Library.BankServer.Entities.Transaction", "DepositId");
+                        .WithMany("Transactions")
+                        .HasForeignKey("DepositId");
 
                     b.HasOne("Library.BankServer.Entities.Withdrawal", "Withdrawal")
-                        .WithOne("Transaction")
-                        .HasForeignKey("Library.BankServer.Entities.Transaction", "WithdrawalId");
+                        .WithMany("Transactions")
+                        .HasForeignKey("WithdrawalId");
 
                     b.Navigation("BankAccount");
 
@@ -360,7 +354,7 @@ namespace Library.BankServer.Migrations
 
             modelBuilder.Entity("Library.BankServer.Entities.AccountType", b =>
                 {
-                    b.Navigation("BankAccount");
+                    b.Navigation("BankAccounts");
                 });
 
             modelBuilder.Entity("Library.BankServer.Entities.Bank", b =>
@@ -393,12 +387,12 @@ namespace Library.BankServer.Migrations
 
             modelBuilder.Entity("Library.BankServer.Entities.Deposit", b =>
                 {
-                    b.Navigation("Transaction");
+                    b.Navigation("Transactions");
                 });
 
             modelBuilder.Entity("Library.BankServer.Entities.Withdrawal", b =>
                 {
-                    b.Navigation("Transaction");
+                    b.Navigation("Transactions");
                 });
 #pragma warning restore 612, 618
         }

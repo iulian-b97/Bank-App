@@ -14,6 +14,7 @@ namespace Library.BankServer.Entities
         [Required]
         public DateTime Date { get; set; }
 
+        public string BankAccountId { get; set; }
         public BankAccount BankAccount { get; set; }
         public string DepositId { get; set; }
         public Deposit Deposit { get; set; }
