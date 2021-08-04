@@ -18,45 +18,41 @@ namespace BankServer.Services
         }
 
 
-        public AccountType getAccountType(string accountTypeId)
+        public bool createBankAccount(BankAccount model, string bankId, string clientId, string accountTypeId)
         {
-            AccountType accountType = _bankContext.AccountTypes.FirstOrDefault(x => x.Id.Equals(accountTypeId));
+            var existBank = _bankContext.Banks.FirstOrDefault(x => x.Id.Equals(bankId));
+            var existClient = _bankContext.Clients.FirstOrDefault(x => x.Id.Equals(clientId));
+            var existAccountType = _bankContext.AccountTypes.FirstOrDefault(x => x.Id.Equals(accountTypeId));
 
-            return accountType;
-        }
-
-        public void createBankAccount(BankAccount model, string accountTypeId)
-        {
-            BankAccount bankAccount = new BankAccount
+            if ((existBank != null) && (clientId != null) && (accountTypeId != null))
             {
-                BankAccountNumber = model.BankAccountNumber,
-                PIN = model.PIN,
-                CurrencyType = model.CurrencyType,
-                Sold = model.Sold
-            };
+                BankAccount bankAccount = new BankAccount
+                {
+                    BankAccountNumber = model.BankAccountNumber,
+                    PIN = model.PIN,
+                    CurrencyType = model.CurrencyType,
+                    Sold = model.Sold
+                };
 
-            bankAccount.Id = Guid.NewGuid().ToString();
-            bankAccount.AccountTypeId = accountTypeId;
+                bankAccount.Id = Guid.NewGuid().ToString();
 
-            _bankContext.BankAccounts.Add(bankAccount);
-            _bankContext.SaveChanges();
+                bankAccount.BankId = bankId;
+                bankAccount.ClientId = clientId;
+                bankAccount.AccountTypeId = accountTypeId;
+
+                _bankContext.BankAccounts.Add(bankAccount);
+                _bankContext.SaveChanges();
+
+                return true;
+            }
+
+            return false;
         }
 
         public Object getBankAccount(string bankAccountId)
         {
-
-            /*var query = (from x in _bankContext.AccountTypes
-                            join y in _bankContext.BankAccounts
-                            on x.Id equals y.AccountTypeId
-                            select new
-                            {
-                                Id = x.Id,
-                                OfferType = x.OfferType,
-                                Commission = x.Commission
-                            }).ToList(); */
-
             var query = _bankContext.BankAccounts
-                            .Where(z => z.Id.Equals(bankAccountId))
+                            .Where(a => a.Id.Equals(bankAccountId))
                             .Join(_bankContext.AccountTypes,
                                     x => x.AccountTypeId,
                                     y => y.Id,
@@ -67,6 +63,43 @@ namespace BankServer.Services
                                     });
             
             return query;
+        }
+
+        public object getClients(string bankId)
+        {
+            var query = _bankContext.Clients.Where(x => x.BankId.Equals(bankId)).OrderBy(y => y.FirstName).ToList();
+
+            return query;
+        }
+
+        public void deleteClientAccount(string clientId)
+        {
+            var query = _bankContext.Clients.FirstOrDefault(x => x.Id.Equals(clientId));
+
+            _bankContext.Clients.Remove(query);
+            _bankContext.SaveChanges();
+        }
+
+        public object transferIBAN(BankTransferIBAN model, string bankId, string bankAccountId)
+        {
+            var bank = _bankContext.Banks.FirstOrDefault(x => x.Id.Equals(bankId));
+            var bankAccount = _bankContext.BankAccounts.FirstOrDefault(x => x.Id.Equals(bankAccountId));
+
+            BankTransferIBAN bankTransfer = new BankTransferIBAN();
+            bankTransfer.Id = Guid.NewGuid().ToString();
+            bankTransfer.IBAN = bank.CountryCode.ToString() + bank.CountrolDigits.ToString() + bank.BankCode.ToString() + bankAccount.BankAccountNumber.ToString();
+            bankTransfer.Sum = model.Sum;
+            bankTransfer.Date = DateTime.Now;
+
+            bankTransfer.BankId = bankId;
+            bankTransfer.BankAccountId = bankAccountId;
+
+            bankAccount.Sold += bankTransfer.Sum;
+
+            _bankContext.BankTransferIBANs.Add(bankTransfer);
+            _bankContext.SaveChanges();
+
+            return bankTransfer;
         }
     }
 }

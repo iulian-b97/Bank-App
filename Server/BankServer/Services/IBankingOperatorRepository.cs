@@ -8,8 +8,10 @@ namespace BankServer.Services
 {
     public interface IBankingOperatorRepository
     {
-        AccountType getAccountType(string accountTypeId);
-        void createBankAccount(BankAccount model, string accountTypeId);
+        bool createBankAccount(BankAccount model, string bankId, string clientId, string accountTypeId);
         Object getBankAccount(string bankAccountId);
+        Object getClients(string bankId);
+        void deleteClientAccount(string clientId);
+        Object transferIBAN(BankTransferIBAN model, string bankId, string bankAccountId);
     }
 }

@@ -45,7 +45,8 @@ namespace IdentityServer
                             LastName = user.LastName,
                             Address = user.Address,
                             CNP = user.CNP,
-                            PhoneNumber = user.PhoneNumber
+                            PhoneNumber = user.PhoneNumber,
+                            BankId = "92fe6e9b-44f5-43ed-aef7-b1cb131bfc68"
                         });
                     }
                     else if (user.Role == "Operator Bancar")
@@ -58,7 +59,8 @@ namespace IdentityServer
                             LastName = user.LastName,
                             Address = user.Address,
                             CNP = user.CNP,
-                            PhoneNumber = user.PhoneNumber
+                            PhoneNumber = user.PhoneNumber,
+                            BankId = "92fe6e9b-44f5-43ed-aef7-b1cb131bfc68"
                         });
                     }
                 }
@@ -122,6 +124,23 @@ namespace IdentityServer
                 {
                     var client = await _roleManager.CreateAsync(new IdentityRole { Id = "3213ef6b-1d6a-4676-941d-45132ceaa022", Name = "Client" });
                     var bankingOperator = await _roleManager.CreateAsync(new IdentityRole { Id = "a064ba53-869f-4a07-9c76-b634ea9eece6", Name = "Operator Bancar" });
+                }
+
+
+                //4.Create Bank
+                Bank bank = new Bank
+                {
+                    Id = "92fe6e9b-44f5-43ed-aef7-b1cb131bfc68",
+                    Name = "TestBank",
+                    CountryCode = "22",
+                    CountrolDigits = "44",
+                    BankCode = "6666"
+                };
+                var resBank = bankContext.Banks.FirstOrDefault(x => x.Id.Equals(bank.Id));
+
+                if (resBank == null)
+                {
+                    bankContext.Banks.Add(bank);
                 }
 
 

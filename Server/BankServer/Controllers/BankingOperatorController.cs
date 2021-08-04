@@ -24,11 +24,14 @@ namespace BankServer.Controllers
 
         [HttpPost]
         [Route("CreateBankAccount")]
-        public ActionResult CreateBankAccount(BankAccount model, string accountTypeId)
+        public ActionResult CreateBankAccount(BankAccount model, string bankId, string clientId, string accountTypeId)
         {
-            _bankingOperatorRepository.createBankAccount(model, accountTypeId);
+            bool success = _bankingOperatorRepository.createBankAccount(model, bankId, clientId, accountTypeId);
 
-            return Ok();
+            if (success)
+                return Ok();
+            else
+                return BadRequest();
         }
 
         [HttpGet]
@@ -38,6 +41,33 @@ namespace BankServer.Controllers
             var bankAccount = _bankingOperatorRepository.getBankAccount(bankAccountId);
 
             return Ok(bankAccount);
+        }
+
+        [HttpGet]
+        [Route("GetClients")]
+        public ActionResult GetClients(string bankId)
+        {
+            var bankAccount = _bankingOperatorRepository.getClients(bankId);
+
+            return Ok(bankAccount);
+        }
+
+        [HttpDelete]
+        [Route("DeleteClient")]
+        public ActionResult DeleteClient(string clientId)
+        {
+            _bankingOperatorRepository.deleteClientAccount(clientId);
+
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("TransferIBAN")]
+        public ActionResult TransferIBAN(BankTransferIBAN model, string bankId, string bankAccountId)
+        {
+            var res = _bankingOperatorRepository.transferIBAN(model, bankId, bankAccountId);
+
+            return Ok(res);
         }
     }
 }
