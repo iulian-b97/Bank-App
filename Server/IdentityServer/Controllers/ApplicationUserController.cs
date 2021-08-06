@@ -96,7 +96,8 @@ namespace IdentityServer.Controllers
                 {
                     Subject = new ClaimsIdentity(new Claim[]
                     {
-                        new Claim("UserID", user.Id.ToString())
+                        new Claim("UserID", user.Id.ToString()),
+                        new Claim(ClaimTypes.Role, user.Role)
                     }),
                     Expires = DateTime.UtcNow.AddMinutes(60),
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes("ApplicationSettings:JWT_Secret")), SecurityAlgorithms.HmacSha256Signature)
@@ -172,20 +173,16 @@ namespace IdentityServer.Controllers
             return Ok("Logout successfull");
         }
 
-        /*
-        [HttpGet("GetUsers")]
-        public async Task<IActionResult> GetUsers()
+        
+        [HttpGet("GetUser")]
+        public async Task<IActionResult> GetUser(string userId)
         {
-            ICollection<Library.Server.Models.User> Users = new List<Library.Server.Models.User>();
+            var user = _authenticationContext.ApplicationUsers.FirstOrDefault(x => x.Id.Equals(userId));
 
-            var allUsers = _userRepository.GetUsers();
+            if (user == null)
+                return Ok("User not found.");
 
-            if (allUsers == null)
-                return Ok("Users not found.");
-
-            Users = allUsers.Select(x => new Library.Server.Models.User { Id = x.Id, Name = x.UserName }).ToList();
-
-            return Ok(Users);
-        } */
+            return Ok(user);
+        } 
     }
 }

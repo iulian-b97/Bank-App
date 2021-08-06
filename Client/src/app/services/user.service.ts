@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Router } from '@angular/router';
+import { UserModel } from '../models/user.model';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -10,11 +12,16 @@ import { Router } from '@angular/router';
 export class UserService {
 
   public isLoggedIn$: BehaviorSubject<boolean>; 
+  private readonly TOKEN_NAME = 'token';
+  user!: UserModel;
 
   constructor(private fb:FormBuilder, private http:HttpClient, private router:Router) 
   {
     const isLoggedIn = localStorage.getItem('loggedIn') === 'true';
     this.isLoggedIn$ = new BehaviorSubject(isLoggedIn);
+
+    this.isLoggedIn$.next(!!this.token);
+    this.user = this.getUser(this.token);
   }
 
   readonly BaseURI = 'http://localhost:57328/api';
@@ -35,6 +42,9 @@ export class UserService {
     Role :['']
   });
 
+  get token():any {
+    return localStorage.getItem(this.TOKEN_NAME);
+  }
 
   comparePasswords(fb:FormGroup)
   {
@@ -69,7 +79,13 @@ export class UserService {
 
   login(formData: any)
   {
-    return this.http.post(this.BaseURI+'/ApplicationUser/Login',formData);
+    return this.http.post(this.BaseURI+'/ApplicationUser/Login',formData).pipe(
+      tap((response:any) => {
+          this.isLoggedIn$.next(true);
+          localStorage.setItem(this.TOKEN_NAME, response.token);
+          this.user = this.getUser(response.token);
+      })
+    );
   }
 
   logout()
@@ -80,10 +96,14 @@ export class UserService {
     localStorage.removeItem('token');
   }
 
-  getUserName()
+  /*getUserName()
   {
     var tokenHeader = new HttpHeaders({'Authorization':'Bearer '+localStorage.getItem('token')})
     return this.http.get(this.BaseURI+'/UserProfile',{headers : tokenHeader});
+  }*/
+
+  getUser(token: string): UserModel {
+     return JSON.parse(atob(token.split('.')[1])) as UserModel;
   }
 
   isLogged(): boolean

@@ -74,3 +74,4 @@ C:\Users\Iulian\Projects ASP.NET\Bank-App\Server\IdentityServer\bin\Debug\net5.0
 C:\Users\Iulian\Projects ASP.NET\Bank-App\Server\IdentityServer\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\Iulian\Projects ASP.NET\Bank-App\Server\IdentityServer\bin\Debug\net5.0\Newtonsoft.Json.dll
 C:\Users\Iulian\Projects ASP.NET\Bank-App\Server\IdentityServer\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
+C:\Users\Iulian\Projects ASP.NET\Bank-App\Server\IdentityServer\bin\Debug\net5.0\AspNet.Security.OAuth.Validation.dll

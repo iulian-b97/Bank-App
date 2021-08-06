@@ -3,7 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { AtmMenuComponent } from './atm-menu/atm-menu.component';
 import { AuthenticationComponent } from './banking-operator/authentication/authentication.component';
 import { BankingOperatorComponent } from './banking-operator/banking-operator.component';
+import { HasRoleGuard } from './has-role.guard';
 import { HomeComponent } from './home/home.component';
+import { IsAuthenticatedGuard } from './is-authenticated.guard';
 import { LoginComponent } from './user/login/login.component';
 import { RegisterComponent } from './user/register/register.component';
 import { UserComponent } from './user/user.component';
@@ -18,12 +20,21 @@ const routes: Routes = [
       { path: 'login', component: LoginComponent }
     ]
   },
-  { path:'atm-menu', component: AtmMenuComponent },
   { 
-    path:'banking-operator', component: BankingOperatorComponent,
-    children: [
-      { path: 'authentication', component: AuthenticationComponent }
-    ]
+    path:'atm-menu', 
+    component: AtmMenuComponent,
+    canActivate: [IsAuthenticatedGuard, HasRoleGuard],
+    data: {
+      role: 'Client',
+    }
+  },
+  { 
+    path:'banking-operator', 
+    component: BankingOperatorComponent,
+    canActivate: [IsAuthenticatedGuard, HasRoleGuard],
+    data: {
+      role: 'Operator Bancar',
+    }
   }
 ];
 

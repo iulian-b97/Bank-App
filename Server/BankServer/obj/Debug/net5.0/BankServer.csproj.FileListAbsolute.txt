@@ -69,3 +69,4 @@ C:\Users\Iulian\Projects ASP.NET\Bank-App\Server\BankServer\bin\Debug\net5.0\Mic
 C:\Users\Iulian\Projects ASP.NET\Bank-App\Server\BankServer\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
 C:\Users\Iulian\Projects ASP.NET\Bank-App\Server\BankServer\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\Iulian\Projects ASP.NET\Bank-App\Server\BankServer\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
+C:\Users\Iulian\Projects ASP.NET\Bank-App\Server\BankServer\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

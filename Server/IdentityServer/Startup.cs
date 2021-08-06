@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Server.IISIntegration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -52,7 +53,9 @@ namespace IdentityServer
 
             services.AddDefaultIdentity<ApplicationUser>()
                     .AddRoles<IdentityRole>()
-                    .AddEntityFrameworkStores<AuthenticationContext>();
+                    .AddEntityFrameworkStores<AuthenticationContext>()
+                    .AddDefaultTokenProviders();
+
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -72,19 +75,22 @@ namespace IdentityServer
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(x =>
+            })
+            .AddJwtBearer(x =>
             {
                 x.RequireHttpsMetadata = false;
                 x.SaveToken = false;
-                x.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                x.TokenValidationParameters =  new TokenValidationParameters()
                 {
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    ClockSkew = TimeSpan.Zero
-                };
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ClockSkew = TimeSpan.Zero,
+            };
             });
+            
+            services.AddAuthorization();
 
             services.AddCors();
         }
